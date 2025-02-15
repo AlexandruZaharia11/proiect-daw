@@ -22,7 +22,7 @@ function renderProductList($products, $isAdmin = false)
 
 function renderProductForm($product)
 { ?>
-    <form class="admin-form" method="POST" action="product_crud.php">
+    <form class="admin-form" method="POST" enctype="multipart/form-data" action="product_crud.php">
         <input type="hidden" name="product_id" value="<?= $product['id'] ?>">
 
         <label>Title:</label>

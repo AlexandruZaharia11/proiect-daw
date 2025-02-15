@@ -4,7 +4,7 @@ require 'product_list.php';
 
 session_start();
 
-$stmt = $pdo->query("SELECT * FROM products p RIGHT JOIN categories c ON p.category_id = c.id");
+$stmt = $pdo->query("SELECT p.id, p.category_id, p.title, p.description, p.image_path, p.price, c.name FROM products p JOIN categories c ON p.category_id = c.id");
 $products = $stmt->fetchAll();
 $isAdmin = isset($_SESSION['isAdmin']) && $_SESSION['isAdmin'];
 ?>

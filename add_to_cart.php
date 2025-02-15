@@ -17,6 +17,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['product_id'])) {
         $stmt->execute(['user_id' => $userId, 'product_id' => $productId]);
         $existingItem = $stmt->fetch(PDO::FETCH_ASSOC);
 
+        echo print_r($productId);
+
         if ($existingItem) {
             // If already in cart, increase quantity
             $stmt = $pdo->prepare("UPDATE cart SET quantity = quantity + 1 WHERE user_id = :user_id AND product_id = :product_id");
