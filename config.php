@@ -1,13 +1,31 @@
 <?php
-$host = 'm60mxazb4g6sb4nn.chr7pe7iynqr.eu-west-1.rds.amazonaws.com';
-$dbname = 'vd35h6vyhk821woi';
-$username = 'fa890tx6b1gpx3k5';
-$password = 'xlni66fvbu1tzxuf';
+
+//local config
+$host = 'localhost';
+$username = 'alex';
+$password = '1234';
+$dbname = 'proiect';
+
+//heroku config
+$url = getenv('JAWSDB_URL');
+$dbparts = parse_url($url);
+
+$heroku_host = $dbparts['host'];
+$heroku_user = $dbparts['user'];
+$heroku_pass = $dbparts['pass'];
+$heroku_database = ltrim($dbparts['path'], '/');
 
 try {
-    $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $username, $password);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $conn = new PDO("mysql:host=$heroku_host;dbname=$heroku_database", $heroku_user, $heroku_database);
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    echo "Connected successfully";
 } catch (PDOException $e) {
-    die("Database connection failed: " . $e->getMessage());
+    // try {
+    //     $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $username, $password);
+    //     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    // } catch (PDOException $e) {
+    //     echo "Connection failed: " . $e->getMessage();
+    // }
+    echo "Connection failed: " . $e->getMessage();
 }
 ?>
